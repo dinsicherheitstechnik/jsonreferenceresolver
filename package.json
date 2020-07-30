@@ -1,6 +1,6 @@
 {
   "name": "jsonreferenceresolver",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A module to resolve circular dependencies for Newtonsoft JSON",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

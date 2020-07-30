@@ -5,7 +5,11 @@ export class JsonRefResolver {
     private newIds: number = 100000;
     private level: number = 0;
 
-    constructor() { }
+    private idIdentifier: string
+
+    constructor(id) {
+        this.idIdentifier = id
+    }
 
     public resetRefList() {
         this.refList = new Map();
@@ -43,13 +47,13 @@ export class JsonRefResolver {
                 this.level--;
             }
             else {
-                if (key === "$id") {
+                if (key === this.idIdentifier) {
                     if (this.refList.get((val as string).toString()) === undefined) {
                         this.refList.set((val as string).toString(), (this.newIds).toString())
-                        //console.log("       found new $id, oldID", val.toString(), "newID", (this.newIds).toString());
+                        //console.log("       found new this.idIdentifier, oldID", val.toString(), "newID", (this.newIds).toString());
                         this.newIds++
                     } else if (this.refList.get((val as string).toString())) {
-                        //console.log("       found old $id, replacing with ", this.refList.get(val.toString()).toString());
+                        //console.log("       found old this.idIdentifier, replacing with ", this.refList.get(val.toString()).toString());
                         return {
                             '$ref': this.refList.get((val as string).toString()).toString()
                         }
@@ -75,7 +79,7 @@ export class JsonRefResolver {
                 obj[key] = this.resolveIdsList(val)
             }
             else {
-                if (key === "$id") {
+                if (key === this.idIdentifier) {
                     obj[key] = this.refList.get(val)
                 }
             }
@@ -126,11 +130,9 @@ export class JsonRefResolver {
                 this.level--;
             }
             else {
-                if (key === "$id" && this.refList.get(val) === undefined) {
+                if (key === this.idIdentifier && this.refList.get(val) === undefined) {
                     //console.log("   ".repeat(level), 'new id found', val, newIds)
                     this.refList.set(val, obj)
-                } else if (key === "$id" && this.refList.get(val)) {
-                    //console.log("   ".repeat(level), 'found $id duplicate. This shouldnt happen', val, refList.get(val))
                 } else if (key === "$ref") {
                     //console.log("   ".repeat(this.level), 'found $ref', val, this.refList.get(val))
                     return this.refList.get(val)

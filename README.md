@@ -8,7 +8,7 @@ Basically it iterates trough the Object and looks for objects with a value `$id`
 
 
 
-So if you would use `new JsonRefResolver().buildJsonRefified(data)` on this example object
+So if you would use `new JsonRefResolver("$id").buildJsonRefified(data)` on this example object
 
 ```json
 {
@@ -69,14 +69,24 @@ Install the package via npm
 $ npm install jsonreferenceresolver
 ```
 
+### Creating a new JsonRefResolver
 
+The constructor of the `JsonRefResolver` takes in the `id` signature which will be used in the object as the key. 
+
+```javascript
+import { JsonRefResolver } from 'jsonreferenceresolver'
+
+const jsonRefRes = new JsonRefResolver("$id");
+```
+
+After `buildJsonRefified` or `resolveJsonRefs` are used the `newIds` count and the `refList` are not reset. If you want to reset the `refList` you can call `jsonRefRes.resetRefList()` or you can make a new instance of `JsonRefResolver`.
 
 ### Building a refified object
 
 ```javascript
 import { JsonRefResolver } from 'jsonreferenceresolver'
 
-const jsonRefRes = new JsonRefResolver();
+const jsonRefRes = new JsonRefResolver("$id");
 
 const obj = {...};
 const refifiedObj = jsonRefRes.buildJsonRefified(obj);
@@ -94,7 +104,7 @@ const refifiedArr = jsonRefRes.buildJsonRefifiedList(arr);
 ```javascript
 import { JsonRefResolver } from 'jsonreferenceresolver'
 
-const jsonRefRes = new JsonRefResolver();
+const jsonRefRes = new JsonRefResolver("$id");
 
 const obj = {...};
 const refifiedObj = jsonRefRes.resolveJsonRefs(obj);
@@ -110,7 +120,7 @@ const refifiedArr = jsonRefRes.resolveJsonRefsList(arr);
 ### other functions
 
 ```javascript
-const jsonRefRes = new JsonRefResolver();
+const jsonRefRes = new JsonRefResolver("$id");
 
 
 jsonRefRes.resetRefList() // clears just the refList manually, if the building should be done with continuous ids
