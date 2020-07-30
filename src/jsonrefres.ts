@@ -5,8 +5,18 @@ export class JsonRefResolver {
     private newIds: number = 100000;
     private level: number = 0;
 
-    constructor() {
-        console.log("creating jsonrefres")
+    constructor() { }
+
+    public testIfWorks() {
+        return true;
+    }
+
+    public resetRefList() {
+        this.refList = new Map();
+    }
+
+    public getRefList() {
+        return this.refList
     }
 
     public buildJsonRefifiedList(arr: Array<any>): Array<any> {

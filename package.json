@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "files": [
     "dist"
@@ -20,6 +21,9 @@
   "author": "dinsicherheitstechnik",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^26.0.7",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.1.4",
     "typescript": "^3.9.7"
   }
 }

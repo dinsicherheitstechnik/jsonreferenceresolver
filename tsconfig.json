@@ -14,10 +14,12 @@
     "rootDir": "src"
   },
   "include": [
-    "src"
+    "src",
+    "tests/jsonrefres.test.ts"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "tests"
   ]
 }
