@@ -7,10 +7,6 @@ export class JsonRefResolver {
 
     constructor() { }
 
-    public testIfWorks() {
-        return true;
-    }
-
     public resetRefList() {
         this.refList = new Map();
     }

@@ -2,11 +2,6 @@ import { JsonRefResolver } from '../src/jsonrefres';
 import * as data from "./mockData";
 import { isCyclic } from "./helpers";
 
-test('Testing if JsonRefRes is created properely', () => {
-    const jsonrefres = new JsonRefResolver()
-    expect(jsonrefres.testIfWorks()).toBe(true);
-});
-
 test('buildJsonRefified object', () => {
     const jsonrefres = new JsonRefResolver()
     const refified = jsonrefres.buildJsonRefified(data.unrefifiedOrder1)
