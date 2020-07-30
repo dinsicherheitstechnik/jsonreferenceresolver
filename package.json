@@ -18,6 +18,10 @@
     "newtonsoft",
     "jsonrefresolver"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dinsicherheitstechnik/jsonreferenceresolver"
+  },
   "author": "dinsicherheitstechnik",
   "license": "MIT",
   "devDependencies": {

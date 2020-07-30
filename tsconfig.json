@@ -14,8 +14,7 @@
     "rootDir": "src"
   },
   "include": [
-    "src",
-    "tests/jsonrefres.test.ts"
+    "src"
   ],
   "exclude": [
     "node_modules",
