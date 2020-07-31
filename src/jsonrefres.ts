@@ -6,9 +6,11 @@ export class JsonRefResolver {
     private level: number = 0;
 
     private idIdentifier: string
+    private refIdentifier: string
 
-    constructor(id) {
+    constructor(id, ref) {
         this.idIdentifier = id
+        this.refIdentifier = ref
     }
 
     public resetRefList() {
@@ -54,9 +56,9 @@ export class JsonRefResolver {
                         this.newIds++
                     } else if (this.refList.get((val as string).toString())) {
                         //console.log("       found old this.idIdentifier, replacing with ", this.refList.get(val.toString()).toString());
-                        return {
-                            '$ref': this.refList.get((val as string).toString()).toString()
-                        }
+                        const returnObj = {}
+                        returnObj[this.refIdentifier.toString()] = this.refList.get((val as string).toString()).toString()
+                        return returnObj
                     }
                 }
 
@@ -133,7 +135,7 @@ export class JsonRefResolver {
                 if (key === this.idIdentifier && this.refList.get(val) === undefined) {
                     //console.log("   ".repeat(level), 'new id found', val, newIds)
                     this.refList.set(val, obj)
-                } else if (key === "$ref") {
+                } else if (key === this.refIdentifier) {
                     //console.log("   ".repeat(this.level), 'found $ref', val, this.refList.get(val))
                     return this.refList.get(val)
                 }
