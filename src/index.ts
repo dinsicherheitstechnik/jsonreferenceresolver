@@ -1,3 +1,3 @@
-import { JsonRefResolver } from "./jsonrefres";
+import { Refifier, Resolver, IdResolver } from "./jsonrefres";
 
 export * from "./jsonrefres";

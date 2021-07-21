@@ -2,6 +2,7 @@
   "compilerOptions": {
     "declaration": true,
     "strictNullChecks": false,
+    "esModuleInterop": true,
     "target": "es5",
     "outDir": "dist",
     "module": "ES2015",

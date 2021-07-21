@@ -28,9 +28,9 @@
   "author": "dinsicherheitstechnik",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^26.0.7",
-    "jest": "^26.1.0",
-    "ts-jest": "^26.1.4",
+    "@types/jest": "^26.0.24",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6",
     "typescript": "^3.9.7"
   }
 }

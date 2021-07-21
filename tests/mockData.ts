@@ -1,41 +1,48 @@
 export const unrefifiedOrder1 = {
     "$id": "1",
     "name": "Order",
+    "logicalObjectId": "0001",
     "ordernumber": 3242332,
     "someArr": [],
     "articles": [
         {
             "$id": "2",
+            "logicalObjectId": "0002",
             "articlenumber": 42342,
             "articleName": "STRING ARC",
             "manufacturer": "din – Dietmar Nocker Sicherheitstechnik GmbH & Co KG",
             "price": 499.99,
             "currency": {
                 "$id": "3",
+                "logicalObjectId": "0003",
                 "currencyType": "Euro",
                 "rate": 3.532
             }
         },
         {
             "$id": "4",
+            "logicalObjectId": "0004",
             "articlenumber": 64655,
             "articleName": "STRING 2",
             "manufacturer": "din – Dietmar Nocker Sicherheitstechnik GmbH & Co KG",
             "price": 299.99,
             "currency": {
                 "$id": "3",
+                "logicalObjectId": "0003",
                 "currencyType": "Euro",
                 "rate": 3.532
             }
         },
         {
             "$id": "5",
+            "logicalObjectId": "0005",
             "articlenumber": 28535,
             "articleName": "BASIC 2",
             "manufacturer": "din – Dietmar Nocker Sicherheitstechnik GmbH & Co KG",
             "price": 399.99,
             "currency": {
                 "$id": "3",
+                "logicalObjectId": "0003",
                 "currencyType": "Euro",
                 "rate": 3.532
             }
@@ -43,10 +50,12 @@ export const unrefifiedOrder1 = {
     ],
     "customer": {
         "$id": "6",
+        "logicalObjectId": "0006",
         "name": "Adobe Inc.",
         "customerNumber": 324423432,
         "deliveryAddress": {
             "$id": "7",
+            "logicalObjectId": "0007",
             "name": "Adobe Inc.",
             "street": "Silicon Valley",
             "streetNumber": "1",
@@ -54,6 +63,7 @@ export const unrefifiedOrder1 = {
             "city": "San Francisco",
             "country": {
                 "$id": "8",
+                "logicalObjectId": "0008",
                 "name": "US",
                 "longName": "United States",
                 "isAvailable": true,
@@ -62,6 +72,7 @@ export const unrefifiedOrder1 = {
         },
         "invoiceAddress": {
             "$id": "9",
+            "logicalObjectId": "0009",
             "name": "Adobe Inc.",
             "street": "Silicon Valley",
             "streetNumber": "1",
@@ -69,6 +80,7 @@ export const unrefifiedOrder1 = {
             "city": "San Francisco",
             "country": {
                 "$id": "8",
+                "logicalObjectId": "0008",
                 "name": "US",
                 "longName": "United States",
                 "isAvailable": true,
@@ -77,6 +89,7 @@ export const unrefifiedOrder1 = {
         },
         "employeeSales": {
             "$id": "10",
+            "logicalObjectId": "0010",
             "number": "1105",
             "firstName": "John",
             "lastName": "Doe",
@@ -87,6 +100,7 @@ export const unrefifiedOrder1 = {
             "principalName": null,
             "correspondingArticle": {
                 "$id": "1",
+                "logicalObjectId": "0001",
                 "name": "smting"
             }
         },
@@ -94,25 +108,29 @@ export const unrefifiedOrder1 = {
 }
 
 export const refifiedOrder1 = {
-    "$id": "100000",
+    "$id": 100000,
+    "logicalObjectId": "0001",
     "name": "Order",
     "ordernumber": 3242332,
     "someArr": [],
     "articles": [
         {
-            "$id": "100001",
+            "$id": 100001,
+            "logicalObjectId": "0002",
             "articlenumber": 42342,
             "articleName": "STRING ARC",
             "manufacturer": "din – Dietmar Nocker Sicherheitstechnik GmbH & Co KG",
             "price": 499.99,
             "currency": {
-                "$id": "100002",
+                "$id": 100002,
+                "logicalObjectId": "0003",
                 "currencyType": "Euro",
                 "rate": 3.532
             }
         },
         {
-            "$id": "100003",
+            "$id": 100003,
+            "logicalObjectId": "0004",
             "articlenumber": 64655,
             "articleName": "STRING 2",
             "manufacturer": "din – Dietmar Nocker Sicherheitstechnik GmbH & Co KG",
@@ -122,7 +140,8 @@ export const refifiedOrder1 = {
             }
         },
         {
-            "$id": "100004",
+            "$id": 100004,
+            "logicalObjectId": "0005",
             "articlenumber": 28535,
             "articleName": "BASIC 2",
             "manufacturer": "din – Dietmar Nocker Sicherheitstechnik GmbH & Co KG",
@@ -133,18 +152,21 @@ export const refifiedOrder1 = {
         }
     ],
     "customer": {
-        "$id": "100005",
+        "$id": 100005,
+        "logicalObjectId": "0006",
         "name": "Adobe Inc.",
         "customerNumber": 324423432,
         "deliveryAddress": {
-            "$id": "100006",
+            "$id": 100006,
+            "logicalObjectId": "0007",
             "name": "Adobe Inc.",
             "street": "Silicon Valley",
             "streetNumber": "1",
             "streetNumberAddition": null,
             "city": "San Francisco",
             "country": {
-                "$id": "100007",
+                "$id": 100007,
+                "logicalObjectId": "0008",
                 "name": "US",
                 "longName": "United States",
                 "isAvailable": true,
@@ -152,7 +174,8 @@ export const refifiedOrder1 = {
             }
         },
         "invoiceAddress": {
-            "$id": "100008",
+            "$id": 100008,
+            "logicalObjectId": "0009",
             "name": "Adobe Inc.",
             "street": "Silicon Valley",
             "streetNumber": "1",
@@ -163,7 +186,8 @@ export const refifiedOrder1 = {
             }
         },
         "employeeSales": {
-            "$id": "100009",
+            "$id": 100009,
+            "logicalObjectId": "0010",
             "number": "1105",
             "firstName": "John",
             "lastName": "Doe",
@@ -180,61 +204,71 @@ export const refifiedOrder1 = {
 }
 
 export const derefifiedOrder1WithoutCircular = {
-    "$id": "100000",
+    "$id": 100000,
+    "logicalObjectId": "0001",
     "name": "Order",
     "ordernumber": 3242332,
     "someArr": [],
     "articles": [
         {
-            "$id": "100001",
+            "$id": 100001,
+            "logicalObjectId": "0002",
             "articlenumber": 42342,
             "articleName": "STRING ARC",
             "manufacturer": "din – Dietmar Nocker Sicherheitstechnik GmbH & Co KG",
             "price": 499.99,
             "currency": {
-                "$id": "100002",
+                "$id": 100002,
+                "logicalObjectId": "0003",
                 "currencyType": "Euro",
                 "rate": 3.532
             }
         },
         {
-            "$id": "100003",
+            "$id": 100003,
+            "logicalObjectId": "0004",
             "articlenumber": 64655,
             "articleName": "STRING 2",
             "manufacturer": "din – Dietmar Nocker Sicherheitstechnik GmbH & Co KG",
             "price": 299.99,
             "currency": {
-                "$id": "100002",
+                "$id": 100002,
+                "logicalObjectId": "0003",
                 "currencyType": "Euro",
                 "rate": 3.532
             }
         },
         {
-            "$id": "100004",
+            "$id": 100004,
+            "logicalObjectId": "0005",
             "articlenumber": 28535,
             "articleName": "BASIC 2",
             "manufacturer": "din – Dietmar Nocker Sicherheitstechnik GmbH & Co KG",
             "price": 399.99,
             "currency": {
-                "$id": "100002",
+                "$id": 100002,
+                "logicalObjectId": "0003",
                 "currencyType": "Euro",
                 "rate": 3.532
             }
         }
     ],
     "customer": {
-        "$id": "100005",
+        "$id": 100005,
+        "logicalObjectId": "0006",
         "name": "Adobe Inc.",
         "customerNumber": 324423432,
         "deliveryAddress": {
-            "$id": "100006",
+            "$id": 100006,
+            "logicalObjectId": "0007",
             "name": "Adobe Inc.",
             "street": "Silicon Valley",
             "streetNumber": "1",
             "streetNumberAddition": null,
             "city": "San Francisco",
             "country": {
-                "$id": "100007",
+                "$id": 100007,
+                "logicalObjectId": "0008",
                 "name": "US",
                 "longName": "United States",
                 "isAvailable": true,
@@ -242,14 +276,16 @@ export const derefifiedOrder1WithoutCircular = {
             }
         },
         "invoiceAddress": {
-            "$id": "100008",
+            "$id": 100008,
+            "logicalObjectId": "0009",
             "name": "Adobe Inc.",
             "street": "Silicon Valley",
             "streetNumber": "1",
             "streetNumberAddition": null,
             "city": "San Francisco",
             "country": {
-                "$id": "100007",
+                "$id": 100007,
+                "logicalObjectId": "0008",
                 "name": "US",
                 "longName": "United States",
                 "isAvailable": true,
@@ -257,7 +293,8 @@ export const derefifiedOrder1WithoutCircular = {
             }
         },
         "employeeSales": {
-            "$id": "100009",
+            "$id": 100009,
+            "logicalObjectId": "0010",
             "number": "1105",
             "firstName": "John",
             "lastName": "Doe",
@@ -273,10 +310,12 @@ export const derefifiedOrder1WithoutCircular = {
 export const unrefifiedArr1 = [
     {
         "$id": "1",
+        "logicalObjectId": "0001",
         "name": "James Hetfield",
         "function": "singer",
         "country": {
             "$id": "8",
+            "logicalObjectId": "0008",
             "name": "US",
             "longName": "United States",
             "isAvailable": true,
@@ -285,10 +324,12 @@ export const unrefifiedArr1 = [
     },
     {
         "$id": "2",
+        "logicalObjectId": "0002",
         "name": "Kirk Hammett",
         "function": "lead guitar",
         "country": {
             "$id": "8",
+            "logicalObjectId": "0008",
             "name": "US",
             "longName": "United States",
             "isAvailable": true,
@@ -297,10 +338,12 @@ export const unrefifiedArr1 = [
     },
     {
         "$id": "3",
+        "logicalObjectId": "0003",
         "name": "Robert Trujillo",
         "function": "e-bass",
         "country": {
             "$id": "8",
+            "logicalObjectId": "0008",
             "name": "US",
             "longName": "United States",
             "isAvailable": true,
@@ -309,10 +352,12 @@ export const unrefifiedArr1 = [
     },
     {
         "$id": "4",
+        "logicalObjectId": "0004",
         "name": "Lars Ulrich",
         "function": "drums",
         "country": {
             "$id": "8",
+            "logicalObjectId": "0008",
             "name": "US",
             "longName": "United States",
             "isAvailable": true,
@@ -323,11 +368,13 @@ export const unrefifiedArr1 = [
 
 export const refifiedArr1 = [
     {
-        "$id": "100000",
+        "$id": 100000,
+        "logicalObjectId": "0001",
         "name": "James Hetfield",
         "function": "singer",
         "country": {
-            "$id": "100001",
+            "$id": 100001,
+            "logicalObjectId": "0008",
             "name": "US",
             "longName": "United States",
             "isAvailable": true,
@@ -335,7 +382,8 @@ export const refifiedArr1 = [
         }
     },
     {
-        "$id": "100002",
+        "$id": 100002,
+        "logicalObjectId": "0002",
         "name": "Kirk Hammett",
         "function": "lead guitar",
         "country": {
@@ -343,7 +391,8 @@ export const refifiedArr1 = [
         }
     },
     {
-        "$id": "100003",
+        "$id": 100003,
+        "logicalObjectId": "0003",
         "name": "Robert Trujillo",
         "function": "e-bass",
         "country": {
@@ -351,7 +400,8 @@ export const refifiedArr1 = [
         }
     },
     {
-        "$id": "100004",
+        "$id": 100004,
+        "logicalObjectId": "0004",
         "name": "Lars Ulrich",
         "function": "drums",
         "country": {
@@ -362,11 +412,13 @@ export const refifiedArr1 = [
 
 export const derefifiedArr1 = [
     {
-        "$id": "100000",
+        "$id": 100000,
+        "logicalObjectId": "0001",
         "name": "James Hetfield",
         "function": "singer",
         "country": {
-            "$id": "100001",
+            "$id": 100001,
+            "logicalObjectId": "0008",
             "name": "US",
             "longName": "United States",
             "isAvailable": true,
@@ -374,11 +426,13 @@ export const derefifiedArr1 = [
         }
     },
     {
-        "$id": "100002",
+        "$id": 100002,
+        "logicalObjectId": "0002",
         "name": "Kirk Hammett",
         "function": "lead guitar",
         "country": {
-            "$id": "100001",
+            "$id": 100001,
+            "logicalObjectId": "0008",
             "name": "US",
             "longName": "United States",
             "isAvailable": true,
@@ -386,11 +440,13 @@ export const derefifiedArr1 = [
         }
     },
     {
-        "$id": "100003",
+        "$id": 100003,
+        "logicalObjectId": "0003",
         "name": "Robert Trujillo",
         "function": "e-bass",
         "country": {
-            "$id": "100001",
+            "$id": 100001,
+            "logicalObjectId": "0008",
             "name": "US",
             "longName": "United States",
             "isAvailable": true,
@@ -398,11 +454,13 @@ export const derefifiedArr1 = [
         }
     },
     {
-        "$id": "100004",
+        "$id": 100004,
+        "logicalObjectId": "0004",
         "name": "Lars Ulrich",
         "function": "drums",
         "country": {
-            "$id": "100001",
+            "$id": 100001,
+            "logicalObjectId": "0008",
             "name": "US",
             "longName": "United States",
             "isAvailable": true,
@@ -410,3 +468,59 @@ export const derefifiedArr1 = [
         }
     }
 ]
+
+export const mixedIds = {
+    "$id": 1,
+    "logicalObjectId": "0001",
+    "name": "element one", 
+    "arr": [
+        {
+            "$id": 1,
+            "logicalObjectId": "0001",
+            "name": "element one" 
+        },
+        {
+            "$id": 3,
+            "logicalObjectId": "0002",
+            "name": "element two" 
+        }
+    ],
+    "el": {
+        "$id": 4,
+        "logicalObjectId": "0005",
+        "name": "element three" 
+    },
+    "el2": {
+        "$id": 1,
+        "logicalObjectId": "0001",
+        "name": "element one" 
+    }
+}
+
+export const mixedIdsResolved ={
+    "$id": 20,
+    "logicalObjectId": "0001",
+    "name": "element one", 
+    "arr": [
+        {
+            "$id": 20,
+            "logicalObjectId": "0001",
+            "name": "element one" 
+        },
+        {
+            "$id": 21,
+            "logicalObjectId": "0002",
+            "name": "element two" 
+        }
+    ],
+    "el": {
+        "$id": 22,
+        "logicalObjectId": "0005",
+        "name": "element three" 
+    }, 
+    "el2": {
+        "$id": 20,
+        "logicalObjectId": "0001",
+        "name": "element one" 
+    }
+}

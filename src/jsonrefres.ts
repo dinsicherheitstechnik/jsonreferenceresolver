@@ -1,148 +1,192 @@
-export class JsonRefResolver {
+export class IdResolver {
 
-    private refList = new Map();
+    private idIdentifier: string;
+    private loidIdentifier: string;
+    private idFeed: number;
 
-    private newIds: number = 100000;
+    private idMap = new Map<string, number>();
+    private objMap = new Map<string, object>();
+
+
+    constructor(id: string, loid: string, seed: number) {
+        this.idIdentifier = id;
+        this.loidIdentifier = loid;
+        this.idFeed = seed;
+    }
+
+    public async resolveIds(obj: any) {
+        await this.resolveIdsRecursive(obj);
+        console.log("obj: ",obj);
+        
+    }
+ 
+    private async resolveIdsRecursive(obj: any) {
+        let entries = Object.entries(obj);
+        // we got an assigned id
+        if(this.objMap.get(obj[this.loidIdentifier]) !== undefined) {
+            obj[this.idIdentifier] = this.idMap.get(obj[this.loidIdentifier])
+        } else {
+            obj[this.idIdentifier] = ++this.idFeed;
+            this.idMap.set(obj[this.loidIdentifier], this.idFeed);
+            this.objMap.set(obj[this.loidIdentifier], obj)
+        }
+
+        for(let [key, val] of entries) {
+            // val is object
+            if (val !== null && typeof val === 'object' && !Array.isArray(val)) {
+                if(this.objMap.get(val[this.loidIdentifier])) {
+                    val = this.objMap.get(val[this.loidIdentifier]);
+                } else {
+                    this.resolveIdsRecursive(val);
+                }
+            }
+            // val is array
+            else if (val !== null && typeof val === 'object' && Array.isArray(val)) {
+                for (let instance of val) {
+                    if(this.objMap.get(instance[this.loidIdentifier])) {
+                        val = this.objMap.get(instance[this.loidIdentifier]);
+                    } else {
+                        this.resolveIdsRecursive(instance);
+                    }
+                } 
+            }
+        }
+    }
+}
+
+export class Refifier {
+
+    private idIdentifier: string;
+    private refIdentifier: string;
+    private loidIdentifier: string;
+    private idFeed: number;
+
     private level: number = 0;
 
-    private idIdentifier: string
-    private refIdentifier: string
+    private idMap = new Map<string, number>();
 
-    constructor(id, ref) {
-        this.idIdentifier = id
-        this.refIdentifier = ref
+
+    constructor(id: string, ref: string, loid: string, seed: number) {
+        this.idIdentifier = id;
+        this.refIdentifier = ref;
+        this.loidIdentifier = loid;
+        this.idFeed = seed;
     }
 
-    public resetRefList() {
-        this.refList = new Map();
+    public resetReferenceList() {
+        this.idMap = new Map<string, number>(); 
     }
 
-    public getRefList() {
-        return this.refList
+    public getReferenceList(): Map<string, number> {
+        return this.idMap;
     }
 
-    public buildJsonRefifiedList(arr: Array<any>): Array<any> {
+    public refifyList(arr: Array<any>): Array<any> {
         if (Array.isArray(arr) && arr.length > 0) {
             let tempArr = []
             for (let val of arr) {
-
-                tempArr.push(this.buildJsonRefified(val))
+                tempArr.push(this.refify(val))
             }
             return tempArr;
         }
         return []
     }
 
-    public buildJsonRefified(obj: any): any {
-        let entries = Object.entries(obj)
+    public refify(obj: any): any {
+        let entries = Object.entries(obj);
 
-        for (let [key, val] of entries) {
+        if(this.idMap.get(obj[this.loidIdentifier])) {
+            const returnObj = {}
+            returnObj[this.refIdentifier] = this.idMap.get(obj[this.loidIdentifier]).toString()
+            return returnObj
+        } else {
+            obj[this.idIdentifier] = ++this.idFeed;
+            this.idMap.set(obj[this.loidIdentifier], this.idFeed);
+        }
+
+        for(let [key, val] of entries) {
+            // val is object
             if (val !== null && typeof val === 'object' && !Array.isArray(val)) {
-                //console.log("   ".repeat(this.level), "obj found", key)
                 this.level++;
-                //console.log("calling builder for", key)
-                obj[key] = this.buildJsonRefified(val)
-                this.level--;
-            } else if (val !== null && typeof val === 'object' && Array.isArray(val)) {
-                this.level++;
-                obj[key] = this.buildJsonRefifiedList(val)
+                obj[key] = this.refify(val);
                 this.level--;
             }
-            else {
-                if (key === this.idIdentifier) {
-                    if (this.refList.get((val as string).toString()) === undefined) {
-                        this.refList.set((val as string).toString(), (this.newIds).toString())
-                        //console.log("       found new this.idIdentifier, oldID", val.toString(), "newID", (this.newIds).toString());
-                        this.newIds++
-                    } else if (this.refList.get((val as string).toString())) {
-                        //console.log("       found old this.idIdentifier, replacing with ", this.refList.get(val.toString()).toString());
-                        const returnObj = {}
-                        returnObj[this.refIdentifier.toString()] = this.refList.get((val as string).toString()).toString()
-                        return returnObj
-                    }
+            // val is array
+            else if (val !== null && typeof val === 'object' && Array.isArray(val)) {
+                this.level++;
+                let tempArr = [];
+                for (let instance of val) {
+                    tempArr.push(this.refify(instance));
                 }
-
+                obj[key] = tempArr;
+                this.level--;
             }
         }
 
         if (this.level === 0) {
-            return this.resolveIds(obj);
+            obj[this.idIdentifier] = this.idMap.get(obj[this.loidIdentifier]);
+            return obj;
         }
+        
         return obj;
     }
+    
+}
 
-    private resolveIds(obj: any): any {
-        let entries = Object.entries(obj)
+export class Resolver {
+    private idIdentifier: string;
+    private refIdentifier: string;
 
-        for (let [key, val] of entries) {
-            if (val !== null && typeof val === 'object' && !Array.isArray(val)) {
-                obj[key] = this.resolveIds(val)
-            } else if (val !== null && typeof val === 'object' && Array.isArray(val)) {
-                obj[key] = this.resolveIdsList(val)
-            }
-            else {
-                if (key === this.idIdentifier) {
-                    obj[key] = this.refList.get(val)
-                }
-            }
-        }
-        return obj;
+    private refMapArray = new Array;
+
+    constructor(id: string, ref: string) {
+        this.idIdentifier = id;
+        this.refIdentifier = ref;
     }
 
-    private resolveIdsList(arr: Array<any>): Array<any> {
-        if (Array.isArray(arr) && arr.length > 0) {
+    public getReferenceList(): Array<any> {
+        return this.refMapArray;
+    }
+
+    public resetReferenceList() {
+        this.refMapArray = new Array;
+    }
+
+    public resolveList(arr: Array<any>): Array<any> {
+        if(Array.isArray(arr) && arr.length > 0) {
             let tempArr = []
             for (let val of arr) {
-
-                tempArr.push(this.resolveIds(val))
+                tempArr.push(this.resolve(val))
             }
-            return tempArr;
+            return tempArr
         }
-        return [];
+        return []
     }
 
-    public resolveJsonRefsList(arr: Array<any>): Array<any> {
-        if (Array.isArray(arr) && arr.length > 0) {
-            let tempArr = []
-            for (let val of arr) {
-
-                tempArr.push(this.resolveJsonRefs(val))
-            }
-            return tempArr;
+    public resolve(obj: object): object {
+        let entries = Object.entries(obj);
+        
+        if (obj[this.idIdentifier] !== undefined) {
+            this.refMapArray.push({"id": obj[this.idIdentifier], "obj": {...obj}});
+        } else {
+            return this.refMapArray.find(i => {if((""+i.id) == (obj[this.refIdentifier])) return i.obj})["obj"];
         }
-        return [];
-    }
-
-    public resolveJsonRefs(obj: any): any {
-        //console.log("resolveJsonRefs", obj)
-        let entries = Object.entries(obj)
-
-        for (let [key, val] of entries) {
+        
+        for(let [key, val] of entries) {
+            // val is object
             if (val !== null && typeof val === 'object' && !Array.isArray(val)) {
-                //sole.log("   ".repeat(this.level), "obj found", key)
-                this.level++;
-                // console.log(this.level, "not array found", obj)
-                obj[key] = this.resolveJsonRefs(val)
-                this.level--;
-            } else if (val !== null && typeof val === 'object' && Array.isArray(val)) {
-
-                this.level++;
-                // console.log(this.level, "array found", obj)
-                obj[key] = this.resolveJsonRefsList(val)
-                this.level--;
+                obj[key] = this.resolve(val);
             }
-            else {
-                if (key === this.idIdentifier && this.refList.get(val) === undefined) {
-                    //console.log("   ".repeat(level), 'new id found', val, newIds)
-                    this.refList.set(val, obj)
-                } else if (key === this.refIdentifier) {
-                    //console.log("   ".repeat(this.level), 'found $ref', val, this.refList.get(val))
-                    return this.refList.get(val)
+            // val is array
+            else if (val !== null && typeof val === 'object' && Array.isArray(val)) {
+                let tempArr = [];
+                for (let instance of val) {
+                    tempArr.push(this.resolve(instance));
                 }
+                obj[key] = tempArr;
             }
         }
+
         return obj;
     }
-
-
 }
