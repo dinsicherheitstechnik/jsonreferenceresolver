@@ -470,57 +470,50 @@ export const derefifiedArr1 = [
 ]
 
 export const mixedIds = {
-    "$id": 1,
-    "logicalObjectId": "0001",
-    "name": "element one", 
+    "$id": 12,
+    "logicalObjectId": "9999",
+    "el0": {
+        "$id": 1,
+        "logicalObjectId": "0001",
+        "name": "element one"
+    },
     "arr": [
         {
+            "$id": 5,
+            "logicalObjectId": "0006",
+            "name": "element asdf"
+        }, {
             "$id": 1,
             "logicalObjectId": "0001",
-            "name": "element one" 
+            "name": "element one"
         },
         {
             "$id": 3,
             "logicalObjectId": "0002",
-            "name": "element two" 
+            "name": "element two"
         }
     ],
     "el": {
         "$id": 4,
         "logicalObjectId": "0005",
-        "name": "element three" 
+        "name": "element three"
     },
     "el2": {
-        "$id": 1,
+        "$id": 2,
         "logicalObjectId": "0001",
-        "name": "element one" 
+        "name": "element one"
     }
 }
 
-export const mixedIdsResolved ={
+export const mixedIdsResolved = {
     "$id": 20,
-    "logicalObjectId": "0001",
-    "name": "element one", 
+    "logicalObjectId": "9999",
+    "el0": { "$id": 21, "logicalObjectId": "0001", "name": "element one" },
     "arr": [
-        {
-            "$id": 20,
-            "logicalObjectId": "0001",
-            "name": "element one" 
-        },
-        {
-            "$id": 21,
-            "logicalObjectId": "0002",
-            "name": "element two" 
-        }
+        { "$id": 22, "logicalObjectId": "0006", "name": "element asdf" },
+        { "$id": 21, "logicalObjectId": "0001", "name": "element one" },
+        { "$id": 23, "logicalObjectId": "0002", "name": "element two" }
     ],
-    "el": {
-        "$id": 22,
-        "logicalObjectId": "0005",
-        "name": "element three" 
-    }, 
-    "el2": {
-        "$id": 20,
-        "logicalObjectId": "0001",
-        "name": "element one" 
-    }
-}
+    "el": { "$id": 24, "logicalObjectId": "0005", "name": "element three" },
+    "el2": { "$id": 21, "logicalObjectId": "0001", "name": "element one" }
+};

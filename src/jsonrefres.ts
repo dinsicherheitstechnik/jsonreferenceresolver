@@ -5,7 +5,7 @@ export class IdResolver {
     private idFeed: number;
 
     private idMap = new Map<string, number>();
-    private objMap = new Map<string, object>();
+    //private objMap = new Map<string, object>();
 
 
     constructor(id: string, loid: string, seed: number) {
@@ -16,26 +16,28 @@ export class IdResolver {
 
     public async resolveIds(obj: any) {
         await this.resolveIdsRecursive(obj);
-        console.log("obj: ",obj);
+        // console.log("obj: ",obj);
         
     }
  
     private async resolveIdsRecursive(obj: any) {
         let entries = Object.entries(obj);
         // we got an assigned id
-        if(this.objMap.get(obj[this.loidIdentifier]) !== undefined) {
+        console.log(obj[this.loidIdentifier], this.idMap,this.idMap.get(obj[this.loidIdentifier]))
+        if(this.idMap.get(obj[this.loidIdentifier]) !== undefined) {
             obj[this.idIdentifier] = this.idMap.get(obj[this.loidIdentifier])
         } else {
             obj[this.idIdentifier] = ++this.idFeed;
             this.idMap.set(obj[this.loidIdentifier], this.idFeed);
-            this.objMap.set(obj[this.loidIdentifier], obj)
+            //this.objMap.set(obj[this.loidIdentifier], obj)
         }
 
         for(let [key, val] of entries) {
             // val is object
             if (val !== null && typeof val === 'object' && !Array.isArray(val)) {
-                if(this.objMap.get(val[this.loidIdentifier])) {
-                    val = this.objMap.get(val[this.loidIdentifier]);
+                if(this.idMap.get(val[this.loidIdentifier])) {
+                    // console.log("==============?????",val[this.loidIdentifier], this.idMap,this.idMap.get(val[this.loidIdentifier]))
+                    val[this.idIdentifier] = this.idMap.get(val[this.loidIdentifier]);
                 } else {
                     this.resolveIdsRecursive(val);
                 }
@@ -43,8 +45,9 @@ export class IdResolver {
             // val is array
             else if (val !== null && typeof val === 'object' && Array.isArray(val)) {
                 for (let instance of val) {
-                    if(this.objMap.get(instance[this.loidIdentifier])) {
-                        val = this.objMap.get(instance[this.loidIdentifier]);
+                    if(this.idMap.get(instance[this.loidIdentifier])) {
+                        // console.log("==============!",instance[this.loidIdentifier], this.idMap,this.idMap.get(instance[this.loidIdentifier]))
+                        instance[this.idIdentifier] = this.idMap.get(instance[this.loidIdentifier]);
                     } else {
                         this.resolveIdsRecursive(instance);
                     }
@@ -167,14 +170,20 @@ export class Resolver {
         let entries = Object.entries(obj);
         
         if (obj[this.idIdentifier] !== undefined) {
-            this.refMapArray.push({"id": obj[this.idIdentifier], "obj": {...obj}});
+            this.refMapArray.push({"id": obj[this.idIdentifier], "obj": obj});
+            // console.log("saving", obj[this.idIdentifier]);
+            
         } else {
-            return this.refMapArray.find(i => {if((""+i.id) == (obj[this.refIdentifier])) return i.obj})["obj"];
+            // console.log(")))))))))))))))))))))))))))))))))))))>",obj, obj[this.refIdentifier], this.refMapArray.find(i => {if((i.id.toString()) == (obj[this.refIdentifier])) return i.obj})["obj"]);
+            
+            return this.refMapArray.find(i => {if((i.id.toString()) == (obj[this.refIdentifier])) return i.obj})["obj"];
         }
         
         for(let [key, val] of entries) {
             // val is object
             if (val !== null && typeof val === 'object' && !Array.isArray(val)) {
+                // console.log("trying to resolve", obj, val);
+                
                 obj[key] = this.resolve(val);
             }
             // val is array

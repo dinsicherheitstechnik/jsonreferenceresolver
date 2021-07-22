@@ -46,11 +46,11 @@ test('check if clearRefList works', () => {
     expect(jsonrefres.getReferenceList().length).toEqual(0)
 });
 
-// test('check if resolveIds works', async () => {
-//     const idResolver = new IdResolver("$id", "logicalObjectId", 19);
-//     let f = data.mixedIds
-//     await idResolver.resolveIds(f).then(() => {
-//         console.log(f)
-//     })
-//     expect(f).toEqual(data.mixedIdsResolved)
-// });
+test('check if resolveIds works', async () => {
+    const idResolver = new IdResolver("$id", "logicalObjectId", 19);
+    let f = data.mixedIds
+    await idResolver.resolveIds(f).then(() => {
+        console.log(f)
+    })
+    expect(f).toEqual(data.mixedIdsResolved)
+});
