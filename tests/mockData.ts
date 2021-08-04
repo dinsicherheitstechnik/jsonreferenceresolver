@@ -3,7 +3,7 @@ export const unrefifiedOrder1 = {
     "name": "Order",
     "logicalObjectId": "0001",
     "ordernumber": 3242332,
-    "someArr": [],
+    "someArr": ["a", "a", "a", "a", "a"],
     "articles": [
         {
             "$id": "2",
@@ -112,7 +112,7 @@ export const refifiedOrder1 = {
     "logicalObjectId": "0001",
     "name": "Order",
     "ordernumber": 3242332,
-    "someArr": [],
+    "someArr": ["a", "a", "a", "a", "a"],
     "articles": [
         {
             "$id": 100001,
@@ -208,7 +208,7 @@ export const derefifiedOrder1WithoutCircular = {
     "logicalObjectId": "0001",
     "name": "Order",
     "ordernumber": 3242332,
-    "someArr": [],
+    "someArr": ["a", "a", "a", "a", "a"],
     "articles": [
         {
             "$id": 100001,

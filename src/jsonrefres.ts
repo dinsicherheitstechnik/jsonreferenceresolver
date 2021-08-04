@@ -23,7 +23,7 @@ export class IdResolver {
     private async resolveIdsRecursive(obj: any) {
         let entries = Object.entries(obj);
         // we got an assigned id
-        console.log(obj[this.loidIdentifier], this.idMap,this.idMap.get(obj[this.loidIdentifier]))
+        // console.log(obj[this.loidIdentifier], this.idMap,this.idMap.get(obj[this.loidIdentifier]))
         if(this.idMap.get(obj[this.loidIdentifier]) !== undefined) {
             obj[this.idIdentifier] = this.idMap.get(obj[this.loidIdentifier])
         } else {
@@ -43,7 +43,7 @@ export class IdResolver {
                 }
             }
             // val is array
-            else if (val !== null && typeof val === 'object' && Array.isArray(val)) {
+            else if (val !== null && typeof val === 'object' && Array.isArray(val) && !isBasic(val)) {
                 for (let instance of val) {
                     if(this.idMap.get(instance[this.loidIdentifier])) {
                         // console.log("==============!",instance[this.loidIdentifier], this.idMap,this.idMap.get(instance[this.loidIdentifier]))
@@ -55,6 +55,18 @@ export class IdResolver {
             }
         }
     }
+}
+
+const isBasic = (arr: any[]): boolean => {
+    return arr.every(item => {
+        if (item !== null && typeof item === 'object' && !Array.isArray(item)) { 
+            return false;
+        } else if (item !== null && typeof item === 'object' && Array.isArray(item)) {
+            return false;
+        } else {
+            return true;
+        }
+    });
 }
 
 export class Refifier {
@@ -115,7 +127,7 @@ export class Refifier {
                 this.level--;
             }
             // val is array
-            else if (val !== null && typeof val === 'object' && Array.isArray(val)) {
+            else if (val !== null && typeof val === 'object' && Array.isArray(val) && !isBasic(val)) {
                 this.level++;
                 let tempArr = [];
                 for (let instance of val) {
@@ -187,7 +199,7 @@ export class Resolver {
                 obj[key] = this.resolve(val);
             }
             // val is array
-            else if (val !== null && typeof val === 'object' && Array.isArray(val)) {
+            else if (val !== null && typeof val === 'object' && Array.isArray(val) && !isBasic(val)) {
                 let tempArr = [];
                 for (let instance of val) {
                     tempArr.push(this.resolve(instance));
